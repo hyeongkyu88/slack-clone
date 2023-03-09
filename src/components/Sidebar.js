@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import CreateIcon from "@material-ui/icons/Create";
@@ -10,8 +10,9 @@ import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
 import AppsIcon from "@material-ui/icons/Apps";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
-import ExpandLessIcon from "@material-ui/icons/ExpandLess";
+
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import AddIcon from "@material-ui/icons/Add";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { auth, db } from "../firebase";
@@ -20,6 +21,15 @@ import { useAuthState } from "react-firebase-hooks/auth";
 function Sidebar() {
   const [channels] = useCollection(db.collection("rooms"));
   const [user] = useAuthState(auth);
+  const [showLess, setShowLess] = useState(true);
+  const [channelLess, setChannelLess] = useState(true);
+
+  const toggleUpDownFunction = (e) => {
+    setShowLess(!showLess);
+  };
+  const toggleUpDownChannels = (e) => {
+    setChannelLess(!channelLess);
+  };
   return (
     <SidebarContainer>
       <SidebarHeader>
@@ -32,21 +42,46 @@ function Sidebar() {
         </SidebarInfo>
         <CreateIcon />
       </SidebarHeader>
-      <SidebarOption Icon={InsertCommentIcon} title="Threads" />
-      <SidebarOption Icon={InboxIcon} title="Mention & reactions" />
-      <SidebarOption Icon={DraftsIcon} title="Saved items" />
-      <SidebarOption Icon={BookmarkBorderIcon} title="Channel brower" />
-      <SidebarOption Icon={PeopleAltIcon} title="People & user groups" />
-      <SidebarOption Icon={AppsIcon} title="Apps" />
-      <SidebarOption Icon={FileCopyIcon} title="File brower" />
-      <SidebarOption Icon={ExpandLessIcon} title="Show less" />
+      <FunctionChannel onClick={toggleUpDownFunction}>
+        {showLess && (
+          <ExpandMoreIcon fontSize="small" style={{ padding: 10 }} />
+        )}
+        {!showLess && (
+          <ChevronRightIcon fontSize="small" style={{ padding: 10 }} />
+        )}
+        <h3>Function</h3>
+      </FunctionChannel>
+      {showLess && (
+        <ShowLessUpDown>
+          <SidebarOption Icon={InsertCommentIcon} title="Threads" />
+          <SidebarOption Icon={InboxIcon} title="Mention & reactions" />
+          <SidebarOption Icon={DraftsIcon} title="Saved items" />
+          <SidebarOption Icon={BookmarkBorderIcon} title="Channel browser" />
+          <SidebarOption Icon={PeopleAltIcon} title="People & user groups" />
+          <SidebarOption Icon={AppsIcon} title="Apps" />
+          <SidebarOption Icon={FileCopyIcon} title="File browser" />
+        </ShowLessUpDown>
+      )}
+
       <hr />
-      <SidebarOption Icon={ExpandMoreIcon} title="Channels" />
-      <hr />
+
+      <FunctionChannel onClick={toggleUpDownChannels}>
+        {channelLess && (
+          <ExpandMoreIcon fontSize="small" style={{ padding: 10 }} />
+        )}
+        {!channelLess && (
+          <ChevronRightIcon fontSize="small" style={{ padding: 10 }} />
+        )}
+        <h3>Channels</h3>
+      </FunctionChannel>
+      {channelLess && (
+        <ChannelUpDown>
+          {channels?.docs.map((doc) => (
+            <SidebarOption key={doc.id} id={doc.id} title={doc.data().name} />
+          ))}
+        </ChannelUpDown>
+      )}
       <SidebarOption Icon={AddIcon} addChannelOption title="Add Channel" />
-      {channels?.docs.map((doc) => (
-        <SidebarOption key={doc.id} id={doc.id} title={doc.data().name} />
-      ))}
     </SidebarContainer>
   );
 }
@@ -99,5 +134,24 @@ const SidebarInfo = styled.div`
       font-size: 14px;
       color: green;
     }
+  }
+`;
+const ShowLessUpDown = styled.div``;
+const ChannelUpDown = styled.div``;
+const FunctionChannel = styled.div`
+  display: flex;
+  font-size: 12px;
+  align-items: center;
+  padding-left: 2px;
+  cursor: pointer;
+  :hover {
+    opacity: 0.9;
+    background-color: #340e36;
+  }
+  > h3 {
+    font-weight: 500;
+  }
+  > h3 > span {
+    padding: 15px;
   }
 `;

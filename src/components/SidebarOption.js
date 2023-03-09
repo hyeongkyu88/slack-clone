@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { db } from "../firebase";
 import { useDispatch } from "react-redux";
 import { enterRoom } from "../features/appSlice";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 function SidebarOption({ Icon, title, addChannelOption, id }) {
   const dispatch = useDispatch();
@@ -16,7 +17,7 @@ function SidebarOption({ Icon, title, addChannelOption, id }) {
     }
   };
 
-  const selectChannel = () => {
+  const selectChannel = (e) => {
     if (id) {
       dispatch(
         enterRoom({
@@ -25,7 +26,11 @@ function SidebarOption({ Icon, title, addChannelOption, id }) {
       );
     }
   };
+  const deleteChannel = (e) => {
+    e.stopPropagation();
 
+    db.collection("rooms").doc(id).delete();
+  };
   return (
     <SidebarOptionContainer
       onClick={addChannelOption ? addChannel : selectChannel}
@@ -34,10 +39,17 @@ function SidebarOption({ Icon, title, addChannelOption, id }) {
       {Icon ? (
         <h3>{title}</h3>
       ) : (
-        <SidebarOptionChannel>
-          <span>#</span>
-          {title}
-        </SidebarOptionChannel>
+        <>
+          <SidebarOptionChannel>
+            <span>#</span>
+            {title}
+          </SidebarOptionChannel>
+          <DeleteIcon
+            onClick={deleteChannel}
+            fontSize="small"
+            style={{ padding: 10 }}
+          />
+        </>
       )}
     </SidebarOptionContainer>
   );
@@ -66,4 +78,5 @@ const SidebarOptionContainer = styled.div`
 const SidebarOptionChannel = styled.h3`
   padding: 10px 0;
   font-weight: 300;
+  width: 100%;
 `;
