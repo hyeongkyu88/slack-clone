@@ -1,0 +1,19 @@
+[debug] [2023-03-09T09:39:42.799Z] ----------------------------------------------------------------------
+[debug] [2023-03-09T09:39:42.801Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\jjhk0\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js hosting:disable
+[debug] [2023-03-09T09:39:42.801Z] CLI Version:   11.24.0
+[debug] [2023-03-09T09:39:42.801Z] Platform:      win32
+[debug] [2023-03-09T09:39:42.801Z] Node Version:  v18.12.1
+[debug] [2023-03-09T09:39:42.802Z] Time:          Thu Mar 09 2023 18:39:42 GMT+0900 (대한민국 표준시)
+[debug] [2023-03-09T09:39:42.802Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-03-09T09:39:42.850Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-03-09T09:39:42.851Z] > authorizing via signed-in user (jjhk0312@gmail.com)
+[debug] [2023-03-09T09:39:42.851Z] [iam] checking project slack-clone-81c99 for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2023-03-09T09:39:42.852Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/slack-clone-81c99:testIamPermissions [none]
+[debug] [2023-03-09T09:39:42.852Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/slack-clone-81c99:testIamPermissions x-goog-quota-user=projects/slack-clone-81c99
+[debug] [2023-03-09T09:39:42.853Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/slack-clone-81c99:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-03-09T09:39:43.684Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/slack-clone-81c99:testIamPermissions 200
+[debug] [2023-03-09T09:39:43.684Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/slack-clone-81c99:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-03-09T09:39:43.685Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/slack-clone-81c99 [none]
+[debug] [2023-03-09T09:39:44.101Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/slack-clone-81c99 200
+[debug] [2023-03-09T09:39:44.102Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/slack-clone-81c99 {"projectId":"slack-clone-81c99","projectNumber":"517582456418","displayName":"slack-clone","name":"projects/slack-clone-81c99","resources":{"hostingSite":"slack-clone-81c99"},"state":"ACTIVE","etag":"1_110bdb64-aed2-4b55-aa98-ca71729a8dd2"}

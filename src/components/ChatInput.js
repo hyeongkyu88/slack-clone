@@ -1,16 +1,13 @@
 import { Button } from "@material-ui/core";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { auth, db } from "../firebase";
+import { db } from "../firebase";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
-import { useAuthState } from "react-firebase-hooks/auth";
 
 function ChatInput({ channelName, channelId }) {
   const [input, setInput] = useState("");
-
-  const [user] = useAuthState(auth);
 
   const sendMessage = (e) => {
     e.preventDefault(); // prevent refresh
